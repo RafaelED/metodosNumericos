@@ -32,13 +32,13 @@ function mayorX(){
     x3=parseInt(inputX3.value);
 
     if(x1>x2 && x1>x3){
-        return [inputX1.value, inputY1.value, inputZ1.value, inputA1.value];
+        return [parseInt(inputX1.value), parseInt(inputY1.value), parseInt(inputZ1.value), parseInt(inputA1.value)];
     }
     if(x2>x1 && x2>x3){
-        return [inputX2.value, inputY2.value, inputZ2.value, inputA2.value];
+        return [parseInt(inputX2.value), parseInt(inputY2.value), parseInt(inputZ2.value), parseInt(inputA2.value)];
     }
     if(x3>x1 && x3>x2){
-        return [inputX3.value, inputY3.value, inputZ3.value, inputA3.value];
+        return [parseInt(inputX3.value), parseInt(inputY3.value), parseInt(inputZ3.value), parseInt(inputA3.value)];
     }
     return [0, 0, 0, 0];
 
@@ -52,13 +52,13 @@ function mayorY(){
     y3=parseInt(inputY3.value);
 
     if(y1>y2 && y1>y3){
-        return [inputX1.value, inputY1.value, inputZ1.value, inputA1.value];
+        return [parseInt(inputX1.value), parseInt(inputY1.value), parseInt(inputZ1.value), parseInt(inputA1.value)];
     }
     if(y2>y1 && y2>y3){
-        return [inputX2.value, inputY2.value, inputZ2.value, inputA2.value];
+        return [parseInt(inputX2.value), parseInt(inputY2.value), parseInt(inputZ2.value), parseInt(inputA2.value)];
     }
     if(y3>y1 && y3>y2){
-        return [inputX3.value, inputY3.value, inputZ3.value, inputA3.value];
+        return [parseInt(inputX3.value), parseInt(inputY3.value), parseInt(inputZ3.value), parseInt(inputA3.value)];
     }
     return [0, 0, 0, 0];
 
@@ -72,13 +72,13 @@ function mayorZ(){
     z3=parseInt(inputZ3.value);
 
     if(z1>z2 && z1>z3){
-        return [inputX1.value, inputY1.value, inputZ1.value, inputA1.value];
+        return [parseInt(inputX1.value), parseInt(inputY1.value), parseInt(inputZ1.value), parseInt(inputA1.value)];
     }
     if(z2>z1 && z2>z3){
-        return [inputX2.value, inputY2.value, inputZ2.value, inputA2.value];
+        return [parseInt(inputX2.value), parseInt(inputY2.value), parseInt(inputZ2.value), parseInt(inputA2.value)];
     }
     if(z3>z1 && z3>z2){
-        return [inputX3.value, inputY3.value, inputZ3.value, inputA3.value];
+        return [parseInt(inputX3.value), parseInt(inputY3.value), parseInt(inputZ3.value), parseInt(inputA3.value)];
     }
     return [0, 0, 0, 0];
 
@@ -115,7 +115,7 @@ function CalcularY(x, z)
 function CalcularZ( x, y)
 {
     var resultado = 0
-    var cocientes = mayorY();
+    var cocientes = mayorZ();
     resultado = (-x*cocientes[0]-y*cocientes[1]+cocientes[3])/cocientes[2];
     return resultado;
     //return (51 + 2 * x - 3 * y) / 8;
@@ -124,9 +124,10 @@ function CalcularZ( x, y)
 //verificacion que se compla la tolerancia
 function VerificarTolerancia(a, b)
 {
-    
-    if (Math.abs(a-b) <= 0.00001)
+    console.log(a.toFixed(6)+"-"+b.toFixed(6)+"="+Math.abs(a-b).toFixed(6));
+    if (Math.abs(a-b).toFixed(6) <= 0.00001)
     {
+        
         return true;
     }
 
@@ -175,6 +176,9 @@ function Gauss_Seidel(arregloAntiguo)
 
     if (!verificado)
     {
+        console.log("vefificado x: "+VerificarTolerancia(arregloAntiguo[0], arregloNuevo[0]));
+        console.log("vefificado y: "+VerificarTolerancia(arregloAntiguo[1], arregloNuevo[1]));
+        console.log("vefificado z: "+VerificarTolerancia(arregloAntiguo[2], arregloNuevo[2]));
         //seguir en caso que no se hayan cumplido todas las tolerancias
         Gauss_Seidel(arregloNuevo);
     }
