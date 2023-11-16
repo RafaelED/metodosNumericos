@@ -154,7 +154,7 @@ function Gauss_Seidel(arregloAntiguo)
 
     for( i = 0;i<3;i++)
     {
-        var valor = arregloNuevo[i].toFixed(2) ;
+        var valor = truncar(arregloNuevo[i],4) ;
         console.log( valor+" ");
         cadena += "<td>"+valor+"</td>";
         //console.log("<td>"+valor+"</td>")
