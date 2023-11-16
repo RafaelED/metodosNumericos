@@ -5,16 +5,19 @@ const boton = document.getElementById("btn-calcular");
 const inputX1 = document.getElementById("x1");
 const inputY1 = document.getElementById("y1");
 const inputZ1 = document.getElementById("z1");
+const inputA1 = document.getElementById("a1");
 
 const inputX2 = document.getElementById("x2");
 const inputY2 = document.getElementById("y2");
 const inputZ2 = document.getElementById("z2");
+const inputA2 = document.getElementById("a2");
 
 const inputX3 = document.getElementById("x3");
 const inputY3 = document.getElementById("y3");
 const inputZ3 = document.getElementById("z3");
+const inputA3 = document.getElementById("a3");
 
-boton.addEventListener("click", Gauss_Seidel([0, 0, 0]));
+boton.addEventListener("click", ()=>{console.log(Gauss_Seidel([0, 0, 0]))});
 
 //inicializar el arreglo con los valores iniciales de x, y, z
 var arregloDatos = [ 0, 0, 0 ];
@@ -23,20 +26,65 @@ var tolerancia = 0.00001;
 
 function mayorX(){
 
-    if(inputX1.value>inputX2.value && inputX1.value>inputX3.value){
-        return [inputX1.value, inputY1.value, inputZ1.value];
+    var x1, x2, x3;
+    x1=parseInt(inputX1.value);
+    x2=parseInt(inputX2.value);
+    x3=parseInt(inputX3.value);
+
+    if(x1>x2 && x1>x3){
+        return [inputX1.value, inputY1.value, inputZ1.value, inputA1.value];
     }
-    if(inputX2.value>inputX1.value && inputX2.value>inputX3.value){
-        return [inputX2.value, inputY2.value, inputZ2.value];
+    if(x2>x1 && x2>x3){
+        return [inputX2.value, inputY2.value, inputZ2.value, inputA2.value];
     }
-    if(inputX3.value>inputX1.value && inputX3.value>inputX2.value){
-        return [inputX3.value, inputY3.value, inputZ3.value];
+    if(x3>x1 && x3>x2){
+        return [inputX3.value, inputY3.value, inputZ3.value, inputA3.value];
     }
-    return [0, 0, 0];
+    return [0, 0, 0, 0];
 
 }
 
-function trdunc (x, posiciones = 0) {
+function mayorY(){
+
+    var y1, y2, y3;
+    y1=parseInt(inputY1.value);
+    y2=parseInt(inputY2.value);
+    y3=parseInt(inputY3.value);
+
+    if(y1>y2 && y1>y3){
+        return [inputX1.value, inputY1.value, inputZ1.value, inputA1.value];
+    }
+    if(y2>y1 && y2>y3){
+        return [inputX2.value, inputY2.value, inputZ2.value, inputA2.value];
+    }
+    if(y3>y1 && y3>y2){
+        return [inputX3.value, inputY3.value, inputZ3.value, inputA3.value];
+    }
+    return [0, 0, 0, 0];
+
+}
+
+function mayorZ(){
+
+    var z1, z2, z3;
+    z1=parseInt(inputZ1.value);
+    z2=parseInt(inputZ2.value);
+    z3=parseInt(inputZ3.value);
+
+    if(z1>z2 && z1>z3){
+        return [inputX1.value, inputY1.value, inputZ1.value, inputA1.value];
+    }
+    if(z2>z1 && z2>z3){
+        return [inputX2.value, inputY2.value, inputZ2.value, inputA2.value];
+    }
+    if(z3>z1 && z3>z2){
+        return [inputX3.value, inputY3.value, inputZ3.value, inputA3.value];
+    }
+    return [0, 0, 0, 0];
+
+}
+
+function truncar(x, posiciones = 0) {
     var s = x.toString()
     var l = s.length
     var decimalLength = s.indexOf('.') + 1
@@ -47,22 +95,30 @@ function trdunc (x, posiciones = 0) {
 //metodos para calcular x, y, z --- Estos estan basados en un ejemplo de clase
 function CalcularX( y,  z)
 {
-    /*algo así va la idea para hacerlo dinamico
+    //algo así va la idea para hacerlo dinamico
     var resultado = 0
     var cocientes = mayorX();
-    resultado = (y+z)/cocientes;
-    return resultado;*/
-    return (3 - y - 2 * z) / 10;
+    resultado = (-y*cocientes[1]-z*cocientes[2]+cocientes[3])/cocientes[0];
+    return resultado;
+    //return (3 - y - 2 * z) / 10;
 }
 
 function CalcularY(x, z)
-{
-    return (9 - 4 * x + z) / 6;
+{   
+    var resultado = 0
+    var cocientes = mayorY();
+    resultado = (-x*cocientes[0]-z*cocientes[2]+cocientes[3])/cocientes[1];
+    return resultado;
+    //return (9 - 4 * x + z) / 6;
 }
 
 function CalcularZ( x, y)
 {
-    return (51 + 2 * x - 3 * y) / 8;
+    var resultado = 0
+    var cocientes = mayorY();
+    resultado = (-x*cocientes[0]-y*cocientes[1]+cocientes[3])/cocientes[2];
+    return resultado;
+    //return (51 + 2 * x - 3 * y) / 8;
 }
 
 //verificacion que se compla la tolerancia
