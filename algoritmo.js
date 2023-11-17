@@ -17,7 +17,7 @@ const inputY3 = document.getElementById("y3");
 const inputZ3 = document.getElementById("z3");
 const inputA3 = document.getElementById("a3");
 
-boton.addEventListener("click", ()=>{console.log(Gauss_Seidel([0, 0, 0]))});
+boton.addEventListener("click", ()=>{CalcularTabla()});
 
 //inicializar el arreglo con los valores iniciales de x, y, z
 var arregloDatos = [ 0, 0, 0 ];
@@ -132,6 +132,14 @@ function VerificarTolerancia(a, b)
     }
 
     return false;
+}
+
+function CalcularTabla(){
+    //vaciar la tabla
+    tabla.innerHTML = "";
+
+    Gauss_Seidel([0, 0, 0]);
+
 }
 
 //metodo principal
