@@ -1,4 +1,4 @@
-
+//definición de constantes de los input de datos
 const tabla = document.getElementById("tabla-contenido");
 const boton = document.getElementById("btn-calcular");
 
@@ -24,6 +24,7 @@ var arregloDatos = [ 0, 0, 0 ];
 //definicion de la tolerancia
 var tolerancia = 0.00001;
 
+//metodos para encontrar la diagonal dominante
 function mayorX(){
 
     var x1, x2, x3;
@@ -41,7 +42,6 @@ function mayorX(){
         return [parseInt(inputX3.value), parseInt(inputY3.value), parseInt(inputZ3.value), parseInt(inputA3.value)];
     }
     return [0, 0, 0, 0];
-
 }
 
 function mayorY(){
@@ -84,6 +84,8 @@ function mayorZ(){
 
 }
 
+//metodo para recortar los decimales, dado un valor decimal, y en número 
+//de decimales que quieres dejar
 function truncar(x, posiciones = 0) {
     var s = x.toString()
     var l = s.length
@@ -92,15 +94,15 @@ function truncar(x, posiciones = 0) {
     return Number(numStr)
   }
 
-//metodos para calcular x, y, z --- Estos estan basados en un ejemplo de clase
+//metodos para calcular los valores de x, y, z
 function CalcularX( y,  z)
 {
-    //algo así va la idea para hacerlo dinamico
+
     var resultado = 0
     var cocientes = mayorX();
     resultado = (-y*cocientes[1]-z*cocientes[2]+cocientes[3])/cocientes[0];
     return resultado;
-    //return (3 - y - 2 * z) / 10;
+    
 }
 
 function CalcularY(x, z)
@@ -109,7 +111,7 @@ function CalcularY(x, z)
     var cocientes = mayorY();
     resultado = (-x*cocientes[0]-z*cocientes[2]+cocientes[3])/cocientes[1];
     return resultado;
-    //return (9 - 4 * x + z) / 6;
+    
 }
 
 function CalcularZ( x, y)
@@ -118,7 +120,7 @@ function CalcularZ( x, y)
     var cocientes = mayorZ();
     resultado = (-x*cocientes[0]-y*cocientes[1]+cocientes[3])/cocientes[2];
     return resultado;
-    //return (51 + 2 * x - 3 * y) / 8;
+    
 }
 
 //verificacion que se compla la tolerancia
@@ -137,7 +139,7 @@ function VerificarTolerancia(a, b)
 function CalcularTabla(){
     //vaciar la tabla
     tabla.innerHTML = "";
-
+    //llamar el método mandandole el vector inicial
     Gauss_Seidel([0, 0, 0]);
 
 }
@@ -165,15 +167,14 @@ function Gauss_Seidel(arregloAntiguo)
         var valor = truncar(arregloNuevo[i],4) ;
         console.log( valor+" ");
         cadena += "<td>"+valor+"</td>";
-        //console.log("<td>"+valor+"</td>")
 
     }
     tabla.innerHTML += "<tr>"+cadena+"</tr>";
 
     console.log("");
-    //llamada al metodo para ponerlos en la interfaz (incompleto)
+    
 
-    //verificacion que todas las variables cumplan con la tolerancia para cerrar el ciclo
+    //verificación que todas las variables cumplan con la tolerancia para cerrar el ciclo
     if (VerificarTolerancia(arregloAntiguo[0], arregloNuevo[0]) && VerificarTolerancia(arregloAntiguo[1], arregloNuevo[1]) && VerificarTolerancia(arregloAntiguo[2], arregloNuevo[2]))
     {
         verificado = true;
